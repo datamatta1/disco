@@ -2,8 +2,15 @@ import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import { readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import dotenv from "dotenv";
 import config from './config.json' assert { type: 'json' };
-const token = config.token;
+// const token = config.token;
+
+dotenv.config();
+
+const token = process.env.TOKEN;
+
+console.log('token :>> ', token);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,8 +21,6 @@ client.commands = new Collection();
 
 const commandsPath = join(__dirname, "commands");
 const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith(".js"));
-
-console.log('commandFiles :>> ', commandFiles);
 
 for (const file of commandFiles) {
     const filePath = join(commandsPath, file);
@@ -59,4 +64,4 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 });
 
-client.login(token);
+client.login(String(token));
