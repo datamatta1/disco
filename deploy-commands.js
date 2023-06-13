@@ -1,9 +1,11 @@
 import { REST } from 'discord.js';
 import fs from 'fs/promises';
 import path from 'path';
+import dotenv from "dotenv"
 
-const configPath = path.join(process.cwd(), 'config.json');
-const { clientId, guildId, token } = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+dotenv.config()
+
+const { CLIENT_ID: clientId, GUILD_ID: guildId, TOKEN: token } = process.env;
 
 const commands = [];
 const commandsPath = path.join(path.dirname(new URL(import.meta.url).pathname), 'commands');
