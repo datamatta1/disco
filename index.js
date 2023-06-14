@@ -3,14 +3,10 @@ import { readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import dotenv from "dotenv";
-import config from './config.json' assert { type: 'json' };
-// const token = config.token;
 
 dotenv.config();
 
 const token = process.env.TOKEN;
-
-console.log('token :>> ', token);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
