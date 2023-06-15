@@ -1,9 +1,9 @@
-import { SlashCommandBuilder } from "discord.js";
+import SimpleSlashCommand from "../command-creator/SimpleSlashCommands.js";
 
-export const data = new SlashCommandBuilder()
-    .setName("ping")
-    .setDescription("Replies with Pong!")
+const ping = new SimpleSlashCommand("ping", "Replies with Pong!", "Pong!", false);
+
+export const data = ping.data;
 
 export async function execute(interaction) {
-    await interaction.reply("Pong!")
+    await ping.execute(interaction);
 }
