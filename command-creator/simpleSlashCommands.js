@@ -1,21 +1,20 @@
-import { SlashCommandBuilder } from '@discordjs/builders'
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 class SimpleSlashCommand {
-    constructor(name, description, botReply, ephemeral) {
-        this.data = new SlashCommandBuilder()
-            .setName(name)
-            .setDescription(description)
-        this.botReply = botReply
-        this.ephemeral = ephemeral
-        this.interaction = null
+    constructor(name, description, botReply, ephemeral = false) {
+        this.data = new SlashCommandBuilder().setName(name).setDescription(description);
+        this.botReply = botReply;
+        this.ephemeral = ephemeral;
     }
+
     async execute(interaction) {
-        this.interaction = interaction
+        const reply = typeof this.botReply === 'function' ? this.botReply(interaction) : this.botReply;
+
         await interaction.reply({
-            content: this.botReply,
-            ephemeral: this.ephemeral
-        })
+            content: reply,
+            ephemeral: this.ephemeral,
+        });
     }
 }
 
-export default SimpleSlashCommand
+export default SimpleSlashCommand;
