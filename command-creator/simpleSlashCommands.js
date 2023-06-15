@@ -1,17 +1,19 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 
 class SimpleSlashCommand {
-    constructor(name, description, botReply, hidden) {
+    constructor(name, description, botReply, ephemeral) {
         this.data = new SlashCommandBuilder()
             .setName(name)
             .setDescription(description)
         this.botReply = botReply
-        this.hidden = hidden
+        this.ephemeral = ephemeral
+        this.interaction = null
     }
-    async execute(interaction, hidden) {
+    async execute(interaction) {
+        this.interaction = interaction
         await interaction.reply({
             content: this.botReply,
-            ephemeral: hidden
+            ephemeral: this.ephemeral
         })
     }
 }
